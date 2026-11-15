@@ -29,7 +29,7 @@
   function fillContacts() {
     var s = $('contact'), keep = s.value; s.textContent = '';
     if (!contacts.length) s.add(new Option(t('noContacts'), ''));
-    contacts.forEach(function (c) { s.add(new Option(c.name, c.phone)); });
+    contacts.forEach(function (c) { s.add(new Option(WA.label(c.name, lang), c.phone)); });
     if (keep) s.value = keep;
     regen();
   }
@@ -42,7 +42,7 @@
   function regen() {
     var L = data.topics[$('topic').value || 0].languages[lang], c = cur();
     $('msg').lang = lang; $('msg').dir = i18n.meta[lang].dir;
-    $('msg').value = WA.pickMessage(L, { name: c && c.name, useName: $('usename').checked, prev: $('msg').value });
+    $('msg').value = WA.pickMessage(L, { name: c && c.name, lang: lang, useName: $('usename').checked, prev: $('msg').value });
     update();
   }
   $('add').onclick = function () {
