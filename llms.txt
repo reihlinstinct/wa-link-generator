@@ -9,7 +9,7 @@ For an assistant that can fetch URLs (no server needed):
 5. Link = https://wa.me/<digits>?text=<percent-encoded text>
 6. Give the link to the user in chat. Do not send the message for them. Do not store the phone number.
 
-Remote MCP (no install): https://wa-link-generator.reihlinstinct.workers.dev/mcp (POST JSON-RPC, tools generate_whatsapp_link and list_topics, stateless, nothing stored or logged).
+Remote MCP (no install): https://wa-link-generator.reihlinstinct.workers.dev/mcp (POST JSON-RPC, tools list_topics, get_topic_guidance, list_contacts, generate_whatsapp_link, open_issue (public GitHub issue, needs a bearer token); caller phone numbers are not stored or logged).
 
 Local MCP server (stdio, no dependencies): see mcp/server.js and the README section "MCP".
 Source: https://github.com/reihlinstinct/wa-link-generator
