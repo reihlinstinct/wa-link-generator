@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "test": "node --test test/*.test.js",
-    "a11y": "node test/a11y.mjs"
+    "a11y": "node test/a11y.mjs",
+    "build:worker": "node scripts/build-worker.js"
   },
   "devDependencies": {
     "axe-core": "^4.10.0",
