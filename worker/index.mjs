@@ -54,6 +54,7 @@ module.exports = function createMcp(WA, data, LANGS, contactsData) {
   var CONTACT_IDS = CONTACTS.map(function (c) { return c.id; });
   var MAX_TEXT = 400;
   // Free text must carry no phone numbers or email addresses.
+  // Rejects 8+ digit runs (also long dates or ids written that way) and any @. Deliberately strict.
   var PII = /\d[\d\s\-().]{6,}\d|@/;
   var TOPICS = data.topics.map(function (t) { return t.id; });
   var tools = [
@@ -131,6 +132,7 @@ module.exports = function createMcp(WA, data, LANGS, contactsData) {
       if (!contact) throw new Error('Unknown contact');
       phone = contact.phone;
     }
+    if (a.name !== undefined && a.name !== null && (typeof a.name !== 'string' || PII.test(a.name))) throw new Error('name must be text without phone numbers or emails');
     var name = a.name || (contact && contact.name[lang]);
     if (a.message !== undefined && a.message !== null) {
       if (typeof a.message !== 'string') throw new Error('message must be text');
