@@ -3,52 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
 <title>מחולל קישורי וואטסאפ</title>
-<meta name="description" content="יוצר קישור וואטסאפ עם נוסח מוכן. השליחה נעשית על ידך.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<a class="skip" href="#main">דלג לתוכן</a>
-<header><h1>מחולל קישורי וואטסאפ</h1>
-<p>בוחרים איש קשר ונוסח. הקישור פותח וואטסאפ עם הודעה מוכנה. אתה מוסיף שם אם רוצה ולוחץ שלח בעצמך.</p></header>
+<a class="skip" href="#main" data-i18n="skip">דלג לתוכן</a>
+<header>
+<h1 data-i18n="title">מחולל קישורי וואטסאפ</h1>
+<label for="lang" data-i18n="language">שפה</label>
+<select id="lang"></select>
+<p data-i18n="intro"></p>
+</header>
 <main id="main">
 <section aria-labelledby="h-contact">
-<h2 id="h-contact">למי</h2>
-<label for="contact">איש קשר</label>
+<h2 id="h-contact" data-i18n="who">למי</h2>
+<label for="contact" data-i18n="contact">איש קשר</label>
 <select id="contact"></select>
+<label class="inline"><input type="checkbox" id="usename" checked> <span data-i18n="useName"></span></label>
 <details>
-<summary>הוספת איש קשר</summary>
-<label for="cname">שם</label><input id="cname" autocomplete="off">
-<label for="cphone">מספר וואטסאפ</label><input id="cphone" inputmode="tel" dir="ltr" placeholder="0501234567" autocomplete="off">
-<button type="button" id="add">הוסף</button>
-<button type="button" id="remove">מחק את איש הקשר הנבחר</button>
-<p class="note">אנשי הקשר נשמרים רק בדפדפן שלך ולא נשלחים לשום מקום. אפשר גם לפתוח קישור אישי עם איש קשר מוכן בתוכו.</p>
-<button type="button" id="share">צור קישור אישי לאיש הקשר הנבחר</button>
+<summary data-i18n="addContact">הוספת איש קשר</summary>
+<label for="cname" data-i18n="name">שם</label><input id="cname" autocomplete="off" maxlength="40">
+<label for="cphone" data-i18n="phone">מספר וואטסאפ</label><input id="cphone" inputmode="tel" dir="ltr" placeholder="05X XXX XXXX" autocomplete="off" maxlength="20">
+<button type="button" id="add" data-i18n="add">הוסף</button>
+<button type="button" id="remove" data-i18n="remove">מחק</button>
+<p class="note" data-i18n="localNote"></p>
+<button type="button" id="share" data-i18n="share"></button>
 <p id="sharebox" class="note" dir="ltr"></p>
 </details>
 </section>
 <section aria-labelledby="h-topic">
-<h2 id="h-topic">נושא</h2>
-<label for="topic">נושא ההודעות</label>
+<h2 id="h-topic" data-i18n="topic">נושא</h2>
+<label for="topic" data-i18n="topicLabel">נושא ההודעות</label>
 <select id="topic"></select>
 </section>
 <section aria-labelledby="h-msg">
-<h2 id="h-msg">הודעה</h2>
-<label for="msg">נוסח (אפשר לערוך)</label>
+<h2 id="h-msg" data-i18n="message">הודעה</h2>
+<label for="msg" data-i18n="text">נוסח</label>
 <textarea id="msg" rows="4"></textarea>
 <div class="row">
-<button type="button" id="rand">צור נוסח חדש</button>
-<button type="button" id="copy">העתק טקסט</button>
+<button type="button" id="rand" data-i18n="regen"></button>
+<button type="button" id="copy" data-i18n="copy"></button>
 </div>
 <p id="status" role="status" aria-live="polite"></p>
-<a id="go" class="go" href="#" rel="noopener">פתח בוואטסאפ</a>
-</section>
-<section aria-labelledby="h-all">
-<h2 id="h-all">כל הנוסחים</h2>
-<ol id="all"></ol>
+<a id="go" class="go" href="#" rel="noopener noreferrer" data-i18n="open"></a>
 </section>
 </main>
-<footer><p>כל הודעה נשלחת על ידי אדם אמיתי בשמו. אין כאן שליחה אוטומטית ואין זהויות מומצאות. הנוסחים ניטרליים ואפשר לשנות אותם.</p></footer>
+<footer>
+<p data-i18n="footer"></p>
+<p><a href="https://github.com/reihlinstinct/wa-link-generator" rel="noopener noreferrer" data-i18n="source">Source code on GitHub</a> · <span data-i18n="license">MIT</span></p>
+</footer>
+<script src="lib.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
