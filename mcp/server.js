@@ -9,7 +9,8 @@ const WA = require('../lib.js');
 const createMcp = require('./core.js');
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/messages.json'), 'utf8'));
 const i18n = JSON.parse(fs.readFileSync(path.join(__dirname, '../i18n/strings.json'), 'utf8'));
-const mcp = createMcp(WA, data, Object.keys(i18n.meta));
+const contacts = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/contacts.json'), 'utf8'));
+const mcp = createMcp(WA, data, Object.keys(i18n.meta), contacts);
 
 if (require.main === module) {
   readline.createInterface({ input: process.stdin }).on('line', (line) => {
