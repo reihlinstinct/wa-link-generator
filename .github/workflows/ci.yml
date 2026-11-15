@@ -14,8 +14,8 @@ jobs:
         with:
           node-version: 22
       - run: npm test
-      - name: No phone numbers in the repo
-        run: "! grep -rEn --exclude-dir=.git --exclude-dir=test '(\\+?972|\\b05[0-9])[0-9 -]{7,}' ."
+      - name: Phone numbers only in the public contacts file (checked in npm test)
+        run: "! grep -rEn --exclude-dir=.git --exclude-dir=test --exclude-dir=worker --exclude=contacts.json '(\\+?972|\\b05[0-9])[0-9 -]{7,}' ."
   a11y:
     runs-on: ubuntu-latest
     steps:
