@@ -98,4 +98,8 @@ test('worker lists contacts and guidance, and builds a link by contact id', asyn
   assert.ok(r.structuredContent.link.startsWith('https://wa.me/972546788000?text='));
   r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', message: 'write to me at a@b.co' }));
   assert.strictEqual(r.isError, true);
+  for (const name of ['Dana 050-123 4567', 'a@b.co', 12345]) {
+    r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', name }));
+    assert.strictEqual(r.isError, true, String(name));
+  }
 });
