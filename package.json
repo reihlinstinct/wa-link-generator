@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "test": "node --test",
+    "test": "node --test test/*.test.js",
     "a11y": "node test/a11y.mjs"
   },
   "devDependencies": {
