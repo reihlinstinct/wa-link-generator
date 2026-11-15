@@ -1,0 +1,13 @@
+# wa-link-generator
+> Builds wa.me links with a prefilled neutral thank-you message. Nothing is sent automatically: a human opens the link, reviews the text and presses send.
+
+For an assistant that can fetch URLs (no server needed):
+1. Fetch https://reihlinstinct.github.io/wa-link-generator/data/messages.json (topics, languages, wording pool).
+2. Pick a wording for the user's language: either one string from `standalone`, or a `cores` string + space + a `closers` string. Optionally prefix a `greetings` string + space + the contact name.
+3. Remove commas, periods and line breaks from the text, collapse spaces.
+4. Normalize the phone to digits with country code (Israel: leading 0 becomes 972).
+5. Link = https://wa.me/<digits>?text=<percent-encoded text>
+6. Give the link to the user in chat. Do not send the message for them. Do not store the phone number.
+
+Local MCP server (stdio, no dependencies): see mcp/server.js and the README section "MCP".
+Source: https://github.com/reihlinstinct/wa-link-generator
