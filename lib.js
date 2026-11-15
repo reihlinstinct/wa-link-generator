@@ -21,6 +21,15 @@
   function safeName(n) {
     return String(n || '').replace(/[\u0000-\u001f\u007f<>]/g, '').trim().slice(0, 40);
   }
+  // Display labels for well-known contacts, keyed by the stored (Hebrew) name.
+  // User-added contacts have no entry and keep their stored name.
+  var KNOWN = {
+    'ראש העיר': { he: 'ראש העיר', en: 'Mayor', ar: 'رئيس البلدية', ru: 'Мэр' }
+  };
+  function label(name, lang) {
+    var k = KNOWN[safeName(name)];
+    return (k && k[lang]) || safeName(name);
+  }
   function pick(a, rnd) { return a[Math.floor(rnd() * a.length)]; }
   // L: {standalone, cores, closers, greetings}. Returns a cleaned wording.
   function pickMessage(L, opts, rnd) {
@@ -30,13 +39,13 @@
       var text;
       if (rnd() < 0.3) text = pick(L.standalone, rnd);
       else text = pick(L.cores, rnd) + ' ' + pick(L.closers, rnd);
-      var name = safeName(opts.name);
+      var name = opts.lang ? label(opts.name, opts.lang) : safeName(opts.name);
       if (opts.useName && name && rnd() < 0.6) text = pick(L.greetings, rnd) + ' ' + name + ' ' + text;
       out = clean(text);
       tries++;
     } while (out === opts.prev && tries < 25);
     return out;
   }
-  var api = { clean: clean, normPhone: normPhone, buildLink: buildLink, safeName: safeName, pickMessage: pickMessage };
+  var api = { clean: clean, normPhone: normPhone, buildLink: buildLink, safeName: safeName, label: label, KNOWN: KNOWN, pickMessage: pickMessage };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.WA = api;
 })(typeof self !== 'undefined' ? self : this);
