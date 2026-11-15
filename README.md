@@ -29,7 +29,7 @@ Assistants that can only fetch URLs can follow `llms.txt` and `data/messages.jso
 Edit `data/messages.json` and `i18n/strings.json` (same keys and pool shape in every language, enforced by the tests) and open a pull request.
 
 ## Develop
-No build step. `python3 -m http.server` for the page, `node --test` for tests (Node 20+).
+No build step. `python3 -m http.server` for the page, `npm test` for tests (Node 20+).
 
 ## License
 MIT
