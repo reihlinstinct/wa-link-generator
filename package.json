@@ -1,0 +1,14 @@
+{
+  "name": "wa-link-generator",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "a11y": "node test/a11y.mjs"
+  },
+  "devDependencies": {
+    "axe-core": "^4.10.0",
+    "puppeteer-core": "^23.0.0"
+  }
+}
