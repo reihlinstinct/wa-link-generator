@@ -90,16 +90,18 @@ test('worker lists contacts and guidance, and builds a link by contact id', asyn
   const worker = (await import('../worker/index.mjs')).default;
   let r = await callWith(worker, {}, rpc('list_contacts', {}));
   const out = r.structuredContent;
-  assert.ok(out.contacts.some((c) => c.id === 'mayor'));
+  assert.deepStrictEqual(out.contacts, []);
   assert.ok(!JSON.stringify(out).includes('972'));
   r = await callWith(worker, {}, rpc('get_topic_guidance', {}));
   assert.ok(r.structuredContent.guidance.goal && Array.isArray(r.structuredContent.guidance.facts));
   r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', lang: 'en', message: 'Thank you for the bus lane' }));
-  assert.ok(r.structuredContent.link.startsWith('https://wa.me/972546788000?text='));
-  r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', message: 'write to me at a@b.co' }));
+  assert.strictEqual(r.isError, true);
+  r = await callWith(worker, {}, rpc('generate_whatsapp_link', { phone: '972501234567', lang: 'en', message: 'Thank you for the bus lane' }));
+  assert.ok(r.structuredContent.link.startsWith('https://wa.me/972501234567?text='));
+  r = await callWith(worker, {}, rpc('generate_whatsapp_link', { phone: '972501234567', message: 'write to me at a@b.co' }));
   assert.strictEqual(r.isError, true);
   for (const name of ['Dana 050-123 4567', 'a@b.co', 12345]) {
-    r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', name }));
+    r = await callWith(worker, {}, rpc('generate_whatsapp_link', { phone: '972501234567', name }));
     assert.strictEqual(r.isError, true, String(name));
   }
 });
