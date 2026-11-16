@@ -1,6 +1,14 @@
 'use strict';
 // Shared MCP logic (JSON-RPC 2.0). No I/O, no storage, no logging, no dependencies.
 // Used by the stdio server (mcp/server.js) and the Cloudflare Worker (worker/index.mjs, generated).
+// Built-in contacts keep no phone number in the code. The number comes from a secret named in
+// phone_secret (an environment variable or a Worker secret). A contact without its secret is left out.
+function withPhones(contactsData, env) {
+  env = env || {};
+  var list = ((contactsData && contactsData.contacts) || []).filter(function (c) { return typeof env[c.phone_secret] === 'string' && env[c.phone_secret]; })
+    .map(function (c) { var o = {}; Object.keys(c).forEach(function (k) { if (k !== 'phone_secret') o[k] = c[k]; }); o.phone = env[c.phone_secret]; return o; });
+  return { contacts: list };
+}
 module.exports = function createMcp(WA, data, LANGS, contactsData) {
   var CONTACTS = (contactsData && contactsData.contacts) || [];
   var CONTACT_IDS = CONTACTS.map(function (c) { return c.id; });
@@ -132,3 +140,4 @@ module.exports = function createMcp(WA, data, LANGS, contactsData) {
   }
   return { tools: tools, callTool: callTool, handle: handle, checkIssue: checkIssue };
 };
+module.exports.withPhones = withPhones;

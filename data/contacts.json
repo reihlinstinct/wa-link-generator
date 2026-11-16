@@ -14,8 +14,14 @@
     "ar": "رئيس بلدية القدس",
     "ru": "Мэр Иерусалима"
    },
-   "phone": "972546788000",
-   "basis": "public per owner (stated by the site owner on 2026-11-13); no separate public source cited yet"
+   "basis": "supplied by the project owner, who confirmed on 2026-11-16 that the number is correct and permitted for publication",
+   "phone_secret": "CONTACT_PHONE_MAYOR",
+   "owner_confirmation": {
+    "by": "project owner",
+    "date": "2026-11-16",
+    "permitted_for_publication": true,
+    "note": "the owner states the mayor also answers on this number and that the mayor's photo shows on its WhatsApp profile (owner's statements, not an independent source)"
+   }
   }
  ]
 }

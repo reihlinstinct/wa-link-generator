@@ -20,7 +20,8 @@ const createMcp = ${wrap(read('mcp/core.js'))};
 const DATA = ${JSON.stringify(data)};
 const CONTACTS = ${JSON.stringify(contacts)};
 const LANGS = ${JSON.stringify(Object.keys(i18n.meta))};
-const mcp = createMcp(WA, DATA, LANGS, CONTACTS);
+// Phone numbers of built-in contacts come only from Worker secrets (phone_secret), never from the code.
+const mcpFor = (env) => createMcp(WA, DATA, LANGS, createMcp.withPhones(CONTACTS, env));
 
 const REPO = 'reihlinstinct/wa-link-generator';
 const MAX_ISSUES_PER_HOUR = 5;
@@ -31,7 +32,7 @@ async function openIssue(req, env, args) {
   if (!env.MCP_ISSUE_TOKEN || !env.GH_ISSUES_TOKEN || !env.RATE) throw new Error('open_issue is not configured');
   const auth = req.headers.get('authorization') || '';
   if (!eq(auth, 'Bearer ' + env.MCP_ISSUE_TOKEN)) throw new Error('open_issue needs a valid bearer token');
-  const issue = mcp.checkIssue(args);
+  const issue = mcpFor(env).checkIssue(args);
   const key = 'issues:' + new Date().toISOString().slice(0, 13);
   const n = parseInt((await env.RATE.get(key)) || '0', 10);
   if (n >= MAX_ISSUES_PER_HOUR) throw new Error('rate limit reached, try again later');
@@ -54,12 +55,12 @@ async function handleMsg(req, env, m) {
       return { jsonrpc: '2.0', id: m.id, result: { content: [{ type: 'text', text: String(e.message) }], isError: true } };
     }
   }
-  return mcp.handle(m);
+  return mcpFor(env).handle(m);
 }
 
 const CORS = {
   'access-control-allow-origin': '*',
-  'access-control-allow-methods': 'POST, OPTIONS',
+  'access-control-allow-methods': 'GET, POST, OPTIONS',
   'access-control-allow-headers': 'content-type, mcp-protocol-version, mcp-session-id, accept',
   'cache-control': 'no-store'
 };
@@ -83,6 +84,11 @@ export default {
       }
       const out = await handleMsg(req, env, body);
       return out ? json(out) : new Response(null, { status: 202, headers: CORS });
+    }
+    if (url.pathname === '/contacts') {
+      if (req.method !== 'GET') return new Response('GET only', { status: 405, headers: { ...CORS, allow: 'GET, OPTIONS' } });
+      // Built-in contacts the owner has published. The numbers come from Worker secrets, not from the code.
+      return json({ contacts: createMcp.withPhones(CONTACTS, env).contacts.map((c) => ({ id: c.id, name: c.name, role: c.role, phone: c.phone, basis: c.basis })) });
     }
     if (url.pathname === '/' || url.pathname === '/health') {
       return new Response('wa-link-generator MCP endpoint: POST /mcp (JSON-RPC 2.0). Phone numbers are not stored or logged. Source: https://github.com/reihlinstinct/wa-link-generator\\n', { headers: { ...CORS, 'content-type': 'text/plain; charset=utf-8' } });
