@@ -86,20 +86,31 @@ test('open_issue posts to the repo with the secret, then rate limits', async () 
     assert.strictEqual(calls[0].init.headers.authorization, 'Bearer gh-test');
   } finally { globalThis.fetch = real; }
 });
-test('worker lists contacts and guidance, and builds a link by contact id', async () => {
+test('built-in contact numbers come only from the Worker secret', async () => {
   const worker = (await import('../worker/index.mjs')).default;
+  const env = { CONTACT_PHONE_MAYOR: '972501234567' };
   let r = await callWith(worker, {}, rpc('list_contacts', {}));
-  const out = r.structuredContent;
-  assert.ok(out.contacts.some((c) => c.id === 'mayor'));
-  assert.ok(!JSON.stringify(out).includes('972'));
-  r = await callWith(worker, {}, rpc('get_topic_guidance', {}));
+  assert.deepStrictEqual(r.structuredContent.contacts, []);
+  r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', message: 'Thank you' }));
+  assert.strictEqual(r.isError, true);
+  r = await callWith(worker, env, rpc('list_contacts', {}));
+  assert.ok(r.structuredContent.contacts.some((c) => c.id === 'mayor'));
+  assert.ok(!JSON.stringify(r.structuredContent).includes('972'));
+  r = await callWith(worker, env, rpc('get_topic_guidance', {}));
   assert.ok(r.structuredContent.guidance.goal && Array.isArray(r.structuredContent.guidance.facts));
-  r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', lang: 'en', message: 'Thank you for the bus lane' }));
-  assert.ok(r.structuredContent.link.startsWith('https://wa.me/972546788000?text='));
-  r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', message: 'write to me at a@b.co' }));
+  r = await callWith(worker, env, rpc('generate_whatsapp_link', { contact: 'mayor', lang: 'en', message: 'Thank you for the bus lane' }));
+  assert.ok(r.structuredContent.link.startsWith('https://wa.me/972501234567?text='));
+  r = await callWith(worker, env, rpc('generate_whatsapp_link', { contact: 'mayor', message: 'write to me at a@b.co' }));
   assert.strictEqual(r.isError, true);
   for (const name of ['Dana 050-123 4567', 'a@b.co', 12345]) {
-    r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', name }));
+    r = await callWith(worker, env, rpc('generate_whatsapp_link', { contact: 'mayor', name }));
     assert.strictEqual(r.isError, true, String(name));
   }
+  let g = await worker.fetch(new Request('https://x.test/contacts'), env);
+  const list = (await g.json()).contacts;
+  assert.strictEqual(list.length, 1);
+  assert.strictEqual(list[0].phone, '972501234567');
+  g = await worker.fetch(new Request('https://x.test/contacts'), {});
+  assert.deepStrictEqual((await g.json()).contacts, []);
+  assert.strictEqual((await worker.fetch(new Request('https://x.test/contacts', { method: 'POST' }), env)).status, 405);
 });
