@@ -26,11 +26,14 @@ test('phone numbers live only in data/contacts.json and the generated worker', (
       if (f.isDirectory()) walk(p); else if (re.test(fs.readFileSync(p, 'utf8'))) hits.push(path.relative(root, p));
     }
   })(root);
-  assert.deepStrictEqual(hits.sort(), ['data/contacts.json', 'worker/index.mjs']);
+  assert.deepStrictEqual(hits.filter((h) => !['data/contacts.json', 'worker/index.mjs'].includes(h)), []);
 });
 test('topic guidance has no invented facts: every fact needs a source URL', () => {
   for (const t of data.topics) {
     assert.ok(t.guidance && t.guidance.goal && t.guidance.stance, t.id);
     for (const f of t.guidance.facts) assert.ok(f.text && /^https:\/\//.test(f.source), t.id);
   }
+});
+test('built-in contacts need a cited public source URL, none is listed until one exists', () => {
+  for (const c of contacts) assert.ok(/https:\/\/\S+/.test(c.source || ''), c.id + ' needs a source URL');
 });
