@@ -245,6 +245,15 @@
       "Приветствую"
      ]
     }
+   },
+   "guidance": {
+    "goal": "Encourage the Jerusalem municipality to approve and keep the bus lane on Aza Street (Azza).",
+    "stance": "We support bus lanes in general and want to encourage this one.",
+    "tone": "Polite, short, respectful and thankful. Written by a real resident in their own voice. No threats, no insults, no pressure tactics.",
+    "length": "One to three short sentences, up to about 250 characters.",
+    "language": "Write in the requested language. No commas, periods or line breaks (they are removed anyway).",
+    "facts": [],
+    "factsNote": "No verified facts are published for this topic yet. State no figures, dates, names or claims beyond goal and stance. Do not invent facts."
    }
   }
  ]
