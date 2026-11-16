@@ -1,21 +1,3 @@
 {
- "contacts": [
-  {
-   "id": "mayor",
-   "name": {
-    "he": "ראש העיר",
-    "en": "Mayor",
-    "ar": "رئيس البلدية",
-    "ru": "Мэр"
-   },
-   "role": {
-    "he": "ראש עיריית ירושלים",
-    "en": "Mayor of Jerusalem",
-    "ar": "رئيس بلدية القدس",
-    "ru": "Мэр Иерусалима"
-   },
-   "phone": "972546788000",
-   "basis": "public per owner (stated by the site owner on 2026-11-13); no separate public source cited yet"
-  }
- ]
+ "contacts": []
 }
