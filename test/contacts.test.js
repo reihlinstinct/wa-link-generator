@@ -11,11 +11,16 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'data/messages.json'), '
 test('every built-in contact has names, roles in all languages and a stated basis', () => {
   for (const c of contacts) {
     for (const l of Object.keys(i18n.meta)) assert.ok(c.name[l] && c.role[l], c.id + ' ' + l);
-    assert.ok(/^972\d{9}$/.test(c.phone), c.id);
+    assert.strictEqual(c.phone, undefined, c.id + ' must not hold its number in the repo');
+    assert.ok(/^[A-Z][A-Z0-9_]+$/.test(c.phone_secret || ''), c.id + ' needs phone_secret');
     assert.ok(c.basis && c.basis.length > 10, c.id + ' needs a basis for being public');
+    const oc = c.owner_confirmation;
+    const hasSource = /^https:\/\/\S+$/.test(c.source || '');
+    const hasOwner = oc && oc.permitted_for_publication === true && /^\d{4}-\d{2}-\d{2}$/.test(oc.date || '') && oc.by;
+    assert.ok(hasSource || hasOwner, c.id + ' needs a source URL or an owner confirmation (by, date, permitted_for_publication)');
   }
 });
-test('phone numbers live only in data/contacts.json and the generated worker', () => {
+test('no phone numbers anywhere in the repo (built-in numbers live in secrets)', () => {
   const re = /(\+?972|\b05[0-9])[0-9 -]{7,}/;
   const skip = new Set(['.git', 'node_modules', 'test']);
   const hits = [];
@@ -26,7 +31,7 @@ test('phone numbers live only in data/contacts.json and the generated worker', (
       if (f.isDirectory()) walk(p); else if (re.test(fs.readFileSync(p, 'utf8'))) hits.push(path.relative(root, p));
     }
   })(root);
-  assert.deepStrictEqual(hits.sort(), ['data/contacts.json', 'worker/index.mjs']);
+  assert.deepStrictEqual(hits, []);
 });
 test('topic guidance has no invented facts: every fact needs a source URL', () => {
   for (const t of data.topics) {
