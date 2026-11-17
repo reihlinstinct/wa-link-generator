@@ -1,12 +1,14 @@
 'use strict';
 // Shared MCP logic (JSON-RPC 2.0). No I/O, no storage, no logging, no dependencies.
 // Used by the stdio server (mcp/server.js) and the Cloudflare Worker (worker/index.mjs, generated).
-// Built-in contacts keep no phone number in the code. The number comes from a secret named in
-// phone_secret (an environment variable or a Worker secret). A contact without its secret is left out.
+// Built-in contacts keep no phone number in the code. The numbers come from one secret named in
+// phones_secret (an environment variable or a Worker secret) holding a JSON object, contact id to phone.
+// A contact without an entry is left out. A missing or invalid secret leaves the list empty.
 function withPhones(contactsData, env) {
-  env = env || {};
-  var list = ((contactsData && contactsData.contacts) || []).filter(function (c) { return typeof env[c.phone_secret] === 'string' && env[c.phone_secret]; })
-    .map(function (c) { var o = {}; Object.keys(c).forEach(function (k) { if (k !== 'phone_secret') o[k] = c[k]; }); o.phone = env[c.phone_secret]; return o; });
+  var phones = {};
+  try { phones = JSON.parse((env && contactsData && env[contactsData.phones_secret]) || '{}') || {}; } catch (e) { phones = {}; }
+  var list = ((contactsData && contactsData.contacts) || []).filter(function (c) { return typeof phones[c.phone_key || c.id] === 'string' && phones[c.phone_key || c.id]; })
+    .map(function (c) { var o = {}; Object.keys(c).forEach(function (k) { if (k !== 'phone_key') o[k] = c[k]; }); o.phone = phones[c.phone_key || c.id]; return o; });
   return { contacts: list };
 }
 module.exports = function createMcp(WA, data, LANGS, contactsData) {
