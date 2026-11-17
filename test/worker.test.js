@@ -88,7 +88,7 @@ test('open_issue posts to the repo with the secret, then rate limits', async () 
 });
 test('built-in contact numbers come only from the Worker secret', async () => {
   const worker = (await import('../worker/index.mjs')).default;
-  const env = { CONTACT_PHONE_MAYOR: '972501234567' };
+  const env = { CONTACT_PHONE_MAYOR: 'ignored', CONTACT_PHONES: JSON.stringify({ mayor: '972501234567' }) };
   let r = await callWith(worker, {}, rpc('list_contacts', {}));
   assert.deepStrictEqual(r.structuredContent.contacts, []);
   r = await callWith(worker, {}, rpc('generate_whatsapp_link', { contact: 'mayor', message: 'Thank you' }));
@@ -110,7 +110,8 @@ test('built-in contact numbers come only from the Worker secret', async () => {
   const list = (await g.json()).contacts;
   assert.strictEqual(list.length, 1);
   assert.strictEqual(list[0].phone, '972501234567');
-  g = await worker.fetch(new Request('https://x.test/contacts'), {});
+  assert.strictEqual(g.headers.get('cache-control'), 'public, max-age=300');
+  g = await worker.fetch(new Request('https://x.test/contacts'), { CONTACT_PHONES: 'not json' });
   assert.deepStrictEqual((await g.json()).contacts, []);
   assert.strictEqual((await worker.fetch(new Request('https://x.test/contacts', { method: 'POST' }), env)).status, 405);
 });
