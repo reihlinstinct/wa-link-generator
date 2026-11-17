@@ -2,7 +2,8 @@
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var KEY = 'wa-contacts-v1', LKEY = 'wa-lang-v1', MAX_CONTACTS = 30;
-  var contacts = [], data, i18n, lang = 'he';
+  var WORKER = 'https://wa-link-generator.reihlinstinct.workers.dev';
+  var contacts = [], builtin = [], data, i18n, lang = 'he';
   function load() { try { var c = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(c) ? c : []; } catch (e) { return []; } }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(contacts)); } catch (e) { /* storage unavailable */ } }
   function t(k) { return i18n.strings[lang][k] || i18n.strings.he[k] || ''; }
@@ -28,12 +29,22 @@
   }
   function fillContacts() {
     var s = $('contact'), keep = s.value; s.textContent = '';
-    if (!contacts.length) s.add(new Option(t('noContacts'), ''));
-    contacts.forEach(function (c) { s.add(new Option(WA.label(c.name, lang), c.phone)); });
+    if (!contacts.length && !builtin.length) s.add(new Option(t('noContacts'), ''));
+    builtin.concat(contacts).forEach(function (c) { s.add(new Option(WA.label(c.name, lang), c.phone)); });
     if (keep) s.value = keep;
+    $('remove').disabled = isBuiltin(s.value);
     regen();
   }
-  function cur() { return contacts.find(function (c) { return c.phone === $('contact').value; }); }
+  function isBuiltin(ph) { return builtin.some(function (c) { return c.phone === ph; }); }
+  function cur() { return builtin.concat(contacts).find(function (c) { return c.phone === $('contact').value; }); }
+  // Built-in contacts come from the Worker (the numbers live in a Worker secret, not in this repo or page).
+  // They are shown, never saved to this browser, and the page works without them if the request fails.
+  function loadBuiltin() {
+    var ctl = typeof AbortController === 'function' ? new AbortController() : null, to = ctl && setTimeout(function () { ctl.abort(); }, 5000);
+    return fetch(WORKER + '/contacts', ctl ? { signal: ctl.signal } : {}).then(function (r) { return r.ok ? r.json() : { contacts: [] }; }).then(function (j) {
+      builtin = (j.contacts || []).slice(0, 10).map(function (c) { return { name: WA.safeName(c.name && c.name.he), phone: WA.normPhone(c.phone) }; }).filter(function (c) { return c.name && c.phone; });
+    }).catch(function () { builtin = []; }).then(function () { if (to) clearTimeout(to); });
+  }
   function update() {
     var link = WA.buildLink($('contact').value, $('msg').value), go = $('go');
     if (link) { go.href = link; go.setAttribute('aria-disabled', 'false'); }
@@ -63,7 +74,7 @@
     (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () { say('copied'); }, function () { $('msg').select(); say('copyManual'); });
   };
   $('rand').onclick = regen;
-  $('msg').oninput = update; $('contact').onchange = regen; $('topic').onchange = regen; $('usename').onchange = regen;
+  $('msg').oninput = update; $('contact').onchange = function () { $('remove').disabled = isBuiltin($('contact').value); regen(); }; $('topic').onchange = regen; $('usename').onchange = regen;
   $('go').addEventListener('click', function (e) { if ($('go').getAttribute('aria-disabled') === 'true') e.preventDefault(); });
   $('lang').onchange = function () { lang = $('lang').value; try { localStorage.setItem(LKEY, lang); } catch (e) { /* ignore */ } applyLang(); };
   Promise.all([fetch('data/messages.json').then(function (r) { return r.json(); }), fetch('i18n/strings.json').then(function (r) { return r.json(); })]).then(function (r) {
@@ -73,5 +84,6 @@
     var nav = (navigator.language || 'he').slice(0, 2);
     lang = i18n.meta[saved] ? saved : (i18n.meta[nav] ? nav : 'he'); $('lang').value = lang;
     importHash(); applyLang();
+    loadBuiltin().then(function () { if (builtin.length) { var first = !$('contact').value; fillContacts(); if (first && builtin[0]) { $('contact').value = builtin[0].phone; regen(); } } });
   });
 })();
