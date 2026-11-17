@@ -64,7 +64,7 @@ const CORS = {
   'access-control-allow-headers': 'content-type, mcp-protocol-version, mcp-session-id, accept',
   'cache-control': 'no-store'
 };
-const json = (obj, status = 200) => new Response(JSON.stringify(obj), { status, headers: { ...CORS, 'content-type': 'application/json' } });
+const json = (obj, status = 200, extra = {}) => new Response(JSON.stringify(obj), { status, headers: { ...CORS, ...extra, 'content-type': 'application/json' } });
 
 export default {
   async fetch(req, env) {
@@ -88,7 +88,7 @@ export default {
     if (url.pathname === '/contacts') {
       if (req.method !== 'GET') return new Response('GET only', { status: 405, headers: { ...CORS, allow: 'GET, OPTIONS' } });
       // Built-in contacts the owner has published. The numbers come from Worker secrets, not from the code.
-      return json({ contacts: createMcp.withPhones(CONTACTS, env).contacts.map((c) => ({ id: c.id, name: c.name, role: c.role, phone: c.phone, basis: c.basis })) });
+      return json({ contacts: createMcp.withPhones(CONTACTS, env).contacts.map((c) => ({ id: c.id, name: c.name, role: c.role, phone: c.phone, basis: c.basis })) }, 200, { 'cache-control': 'public, max-age=300' });
     }
     if (url.pathname === '/' || url.pathname === '/health') {
       return new Response('wa-link-generator MCP endpoint: POST /mcp (JSON-RPC 2.0). Phone numbers are not stored or logged. Source: https://github.com/reihlinstinct/wa-link-generator\\n', { headers: { ...CORS, 'content-type': 'text/plain; charset=utf-8' } });

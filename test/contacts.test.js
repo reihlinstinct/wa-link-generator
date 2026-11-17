@@ -12,7 +12,7 @@ test('every built-in contact has names, roles in all languages and a stated basi
   for (const c of contacts) {
     for (const l of Object.keys(i18n.meta)) assert.ok(c.name[l] && c.role[l], c.id + ' ' + l);
     assert.strictEqual(c.phone, undefined, c.id + ' must not hold its number in the repo');
-    assert.ok(/^[A-Z][A-Z0-9_]+$/.test(c.phone_secret || ''), c.id + ' needs phone_secret');
+    assert.ok(/^[a-z][a-z0-9-]*$/.test(c.phone_key || ''), c.id + ' needs phone_key');
     assert.ok(c.basis && c.basis.length > 10, c.id + ' needs a basis for being public');
     const oc = c.owner_confirmation;
     const hasSource = /^https:\/\/\S+$/.test(c.source || '');
