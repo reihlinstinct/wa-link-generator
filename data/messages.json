@@ -511,6 +511,262 @@
     "facts": [],
     "factsNote": "No verified facts are published for this topic yet. State no figures, dates, street names or claims beyond goal and stance. Do not invent facts."
    }
+  },
+  {
+   "id": "bike-lanes-monthly-ride",
+   "title": {
+    "he": "שבילי אופניים והרכיבה החודשית",
+    "en": "Bike lanes and the monthly ride",
+    "ar": "مسارات الدراجات والجولة الشهرية",
+    "ru": "Велодорожки и ежемесячный заезд"
+   },
+   "languages": {
+    "he": {
+     "standalone": [
+      "תודה על שבילי האופניים",
+      "הרכיבה החודשית של אב״י הייתה כיף גדול תודה",
+      "כל הכבוד על שבילי האופניים",
+      "נהניתי מאוד ברכיבה החודשית של אב״י",
+      "שבילי האופניים זה צעד נכון לעיר",
+      "הרכיבה החודשית של אב״י הייתה חוויה מקסימה",
+      "תודה שאתם דואגים לרוכבי האופניים",
+      "איזה כיף היה ברכיבה החודשית של אב״י",
+      "שבילי האופניים עושים טוב לעיר",
+      "הרכיבה החודשית עם אב״י הייתה מהנה במיוחד",
+      "תודה על החלטה אמיצה לטובת האופניים",
+      "הרכיבה החודשית של אב״י מחברת את הקהילה תודה",
+      "שבילי האופניים מאפשרים לרכוב בבטחה תודה",
+      "היה כיף גדול ברכיבה החודשית של אב״י תודה על שבילי האופניים",
+      "תודה שקידמתם את שבילי האופניים",
+      "הרכיבה החודשית של אב״י הייתה מלאה באנשים שמחים",
+      "מי שרוכב על אופניים מרגיש בטוח יותר בזכות השבילים תודה",
+      "הרכיבה החודשית של אב״י מראה כמה טוב לרכוב בעיר",
+      "תודה על שבילי האופניים ושנדע עוד כאלה",
+      "איזה כיף הרכיבה החודשית של אב״י תודה על השבילים",
+      "שבילי אופניים זה שינוי אמיתי בעיר תודה",
+      "הרכיבה החודשית של אב״י הייתה הוכחה שהעיר רוכבת",
+      "רכיבה בעיר נעימה יותר בזכות שבילי האופניים תודה",
+      "תודה על שבילי האופניים ועל הרוח הטובה ברכיבה החודשית של אב״י"
+     ],
+     "cores": [
+      "תודה על שבילי האופניים בעיר",
+      "הרכיבה החודשית של אב״י הייתה כיף גדול",
+      "שבילי האופניים הם צעד חשוב לעיר",
+      "כל הכבוד על ההחלטה לסלול שבילי אופניים",
+      "הרכיבה החודשית עם אב״י הייתה חוויה נהדרת",
+      "שבילי אופניים הם חלק חשוב מעיר מודרנית",
+      "תודה שקידמתם שבילי אופניים בעיר",
+      "נהניתי מאוד ברכיבה החודשית של אב״י",
+      "שמחה גדולה על שבילי האופניים בעיר",
+      "הרכיבה החודשית של אב״י מראה כמה העיר אוהבת אופניים",
+      "שבילי האופניים הם שינוי שהעיר זקוקה לו",
+      "הרכיבה החודשית של אב״י הייתה מקסימה"
+     ],
+     "closers": [
+      "",
+      "תודה",
+      "תודה רבה",
+      "ושנדע עוד הרבה כאלה",
+      "בהצלחה",
+      "ושיתקדם במהירות",
+      "המשיכו כך",
+      "תודה ובהצלחה"
+     ],
+     "greetings": [
+      "שלום",
+      "היי",
+      "בוקר טוב",
+      "ערב טוב",
+      "שלום וברכה"
+     ]
+    },
+    "en": {
+     "standalone": [
+      "Thank you for the bike lanes",
+      "The monthly ABI ride was great fun thank you",
+      "Well done on the bike lanes",
+      "I really enjoyed the monthly ABI ride",
+      "Bike lanes are the right step for the city",
+      "The monthly ABI ride was a wonderful experience",
+      "Thank you for caring about cyclists",
+      "What fun the monthly ABI ride was",
+      "The bike lanes are good for the city",
+      "The monthly ride with ABI was especially enjoyable",
+      "Thank you for a brave decision for cycling",
+      "The monthly ABI ride brings the community together thank you",
+      "The bike lanes let us ride safely thank you",
+      "The monthly ABI ride was great fun thank you for the bike lanes",
+      "Thank you for moving the bike lanes forward",
+      "The monthly ABI ride was full of happy people",
+      "Anyone who rides a bike feels safer thanks to the lanes thank you",
+      "The monthly ABI ride shows how good it is to ride in the city",
+      "Thank you for the bike lanes and may we see more like them",
+      "What fun the monthly ABI ride was thank you for the lanes",
+      "Bike lanes are a real change in the city thank you",
+      "The monthly ABI ride was proof that the city rides",
+      "Riding in the city is more pleasant thanks to the bike lanes thank you",
+      "Thank you for the bike lanes and for the great spirit at the monthly ABI ride"
+     ],
+     "cores": [
+      "Thank you for the bike lanes in the city",
+      "The monthly ABI ride was great fun",
+      "The bike lanes are an important step for the city",
+      "Well done on the decision to build bike lanes",
+      "The monthly ride with ABI was a wonderful experience",
+      "Bike lanes are an important part of a modern city",
+      "Thank you for moving bike lanes forward in the city",
+      "I really enjoyed the monthly ABI ride",
+      "Great joy about the bike lanes in the city",
+      "The monthly ABI ride shows how much the city loves cycling",
+      "The bike lanes are a change the city needs",
+      "The monthly ABI ride was lovely"
+     ],
+     "closers": [
+      "",
+      "Thank you",
+      "Thank you very much",
+      "and may we see many more like it",
+      "Good luck",
+      "and may it move ahead quickly",
+      "Keep it up",
+      "Thank you and good luck"
+     ],
+     "greetings": [
+      "Hello",
+      "Hi",
+      "Good morning",
+      "Good evening",
+      "Greetings"
+     ]
+    },
+    "ar": {
+     "standalone": [
+      "شكرا على مسارات الدراجات",
+      "الجولة الشهرية للدراجات كانت ممتعة جدا شكرا",
+      "أحسنتم على مسارات الدراجات",
+      "استمتعت كثيرا بالجولة الشهرية للدراجات",
+      "مسارات الدراجات خطوة صحيحة للمدينة",
+      "الجولة الشهرية للدراجات كانت تجربة رائعة",
+      "شكرا لأنكم تهتمون براكبي الدراجات",
+      "يا لها من متعة في الجولة الشهرية للدراجات",
+      "مسارات الدراجات جيدة للمدينة",
+      "الجولة الشهرية كانت ممتعة بشكل خاص",
+      "شكرا على قرار شجاع لصالح الدراجات",
+      "الجولة الشهرية للدراجات تجمع المجتمع شكرا",
+      "مسارات الدراجات تتيح لنا الركوب بأمان شكرا",
+      "الجولة الشهرية للدراجات كانت ممتعة جدا شكرا على مسارات الدراجات",
+      "شكرا لأنكم دفعتم مسارات الدراجات إلى الأمام",
+      "الجولة الشهرية للدراجات كانت مليئة بأناس سعداء",
+      "كل من يركب الدراجة يشعر بأمان أكبر بفضل المسارات شكرا",
+      "الجولة الشهرية للدراجات تظهر كم هو جيد الركوب في المدينة",
+      "شكرا على مسارات الدراجات ونتمنى المزيد مثلها",
+      "يا لها من متعة الجولة الشهرية شكرا على المسارات",
+      "مسارات الدراجات تغيير حقيقي في المدينة شكرا",
+      "الجولة الشهرية للدراجات كانت دليلا على أن المدينة تركب",
+      "ركوب الدراجة في المدينة أجمل بفضل مسارات الدراجات شكرا",
+      "شكرا على مسارات الدراجات وعلى الروح الطيبة في الجولة الشهرية للدراجات"
+     ],
+     "cores": [
+      "شكرا على مسارات الدراجات في المدينة",
+      "الجولة الشهرية للدراجات كانت ممتعة جدا",
+      "مسارات الدراجات خطوة مهمة للمدينة",
+      "أحسنتم على قرار بناء مسارات الدراجات",
+      "الجولة الشهرية كانت تجربة رائعة",
+      "مسارات الدراجات جزء مهم من مدينة حديثة",
+      "شكرا لأنكم دفعتم مسارات الدراجات إلى الأمام في المدينة",
+      "استمتعت كثيرا بالجولة الشهرية للدراجات",
+      "فرحة كبيرة بمسارات الدراجات في المدينة",
+      "الجولة الشهرية للدراجات تظهر كم تحب المدينة ركوب الدراجات",
+      "مسارات الدراجات تغيير تحتاجه المدينة",
+      "الجولة الشهرية للدراجات كانت جميلة"
+     ],
+     "closers": [
+      "",
+      "شكرا",
+      "شكرا جزيلا",
+      "ونتمنى المزيد مثلها",
+      "بالتوفيق",
+      "ونتمنى أن تتقدم بسرعة",
+      "واصلوا هكذا",
+      "شكرا وبالتوفيق"
+     ],
+     "greetings": [
+      "مرحبا",
+      "أهلا",
+      "صباح الخير",
+      "مساء الخير",
+      "تحية طيبة"
+     ]
+    },
+    "ru": {
+     "standalone": [
+      "Спасибо за велодорожки",
+      "Ежемесячный велозаезд был очень веселым спасибо",
+      "Молодцы за велодорожки",
+      "Мне очень понравился ежемесячный велозаезд",
+      "Велодорожки это правильный шаг для города",
+      "Ежемесячный велозаезд был замечательным",
+      "Спасибо что заботитесь о велосипедистах",
+      "Как же весело было на ежемесячном велозаезде",
+      "Велодорожки полезны для города",
+      "Ежемесячный заезд был особенно приятным",
+      "Спасибо за смелое решение в пользу велосипедов",
+      "Ежемесячный велозаезд объединяет людей спасибо",
+      "Велодорожки позволяют ездить безопасно спасибо",
+      "Ежемесячный велозаезд был очень веселым спасибо за велодорожки",
+      "Спасибо что продвигаете велодорожки",
+      "Ежемесячный велозаезд был полон счастливых людей",
+      "Каждый велосипедист чувствует себя безопаснее благодаря дорожкам спасибо",
+      "Ежемесячный велозаезд показывает как хорошо ездить по городу",
+      "Спасибо за велодорожки и пусть таких будет больше",
+      "Как весело был ежемесячный заезд спасибо за дорожки",
+      "Велодорожки это настоящее изменение в городе спасибо",
+      "Ежемесячный велозаезд доказал что город ездит на велосипедах",
+      "Ездить по городу приятнее благодаря велодорожкам спасибо",
+      "Спасибо за велодорожки и за отличную атмосферу на ежемесячном велозаезде"
+     ],
+     "cores": [
+      "Спасибо за велодорожки в городе",
+      "Ежемесячный велозаезд был очень веселым",
+      "Велодорожки это важный шаг для города",
+      "Молодцы за решение строить велодорожки",
+      "Ежемесячный заезд был замечательным",
+      "Велодорожки важная часть современного города",
+      "Спасибо что продвигаете велодорожки в городе",
+      "Мне очень понравился ежемесячный велозаезд",
+      "Большая радость велодорожки в городе",
+      "Ежемесячный велозаезд показывает как город любит велосипеды",
+      "Велодорожки это изменение которое нужно городу",
+      "Ежемесячный велозаезд был прекрасным"
+     ],
+     "closers": [
+      "",
+      "Спасибо",
+      "Большое спасибо",
+      "и пусть таких будет больше",
+      "Удачи",
+      "и пусть это продвинется быстрее",
+      "Так держать",
+      "Спасибо и удачи"
+     ],
+     "greetings": [
+      "Здравствуйте",
+      "Привет",
+      "Доброе утро",
+      "Добрый вечер",
+      "Приветствую"
+     ]
+    }
+   },
+   "guidance": {
+    "goal": "Thank the Mayor of Jerusalem for the city bike lanes and share how much fun the monthly community bike ride of the ABI cycling group (Bicycles for Jerusalem) was.",
+    "stance": "We support bike lanes in general and enjoy the monthly community ride and want to thank the city for both.",
+    "tone": "Polite, short, respectful and thankful. Written by a real resident in their own voice. No threats, no insults, no pressure tactics.",
+    "length": "One to three short sentences, up to about 250 characters.",
+    "language": "Write in the requested language. No commas, periods or line breaks (they are removed anyway).",
+    "facts": [],
+    "factsNote": "No verified facts are published for this topic yet. State no figures, dates, street names or claims beyond goal and stance. Do not invent facts."
+   }
   }
  ]
 }
