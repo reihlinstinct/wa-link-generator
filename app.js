@@ -84,6 +84,9 @@
     var nav = (navigator.language || 'he').slice(0, 2);
     lang = i18n.meta[saved] ? saved : (i18n.meta[nav] ? nav : 'he'); $('lang').value = lang;
     importHash(); applyLang();
+    // Deep link: ?topic=<topic id> preselects a topic (used by QR codes and shared links); a random wording is picked on every open.
+    var wantTopic = null; try { wantTopic = new URLSearchParams(location.search).get('topic'); } catch (e) { /* ignore */ }
+    if (wantTopic) data.topics.forEach(function (tp, i) { if (tp.id === wantTopic) { $('topic').value = String(i); regen(); } });
     loadBuiltin().then(function () { if (builtin.length) { var first = !$('contact').value; fillContacts(); if (first && builtin[0]) { $('contact').value = builtin[0].phone; regen(); } } });
   });
 })();

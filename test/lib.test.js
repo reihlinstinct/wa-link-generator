@@ -62,3 +62,8 @@ test('pickMessage returns clean varied text', () => {
   }
   assert.ok(seen.size > 100);
 });
+test('topic ids are unique and URL-safe for deep links', () => {
+  const ids = data.topics.map((t) => t.id);
+  assert.strictEqual(new Set(ids).size, ids.length);
+  for (const id of ids) assert.match(id, /^[a-z0-9-]+$/, id);
+});
